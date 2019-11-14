@@ -36,7 +36,7 @@ Before we start doing things like looking at individual pets we want to be able 
 
 To do this fill out the `listPets` function.  This will need to make a call to the Pets API and should return a list of objects containing the pet's `id`, `name` and `species`.  This should `throw` an error if it fails.
 
-You can run the Wave 1 tests with `jest test/wave1.test.js` once these are passing move on to Wave 2.
+You can run the Wave 1 tests with `$ jest test/wave1.test.js`. Once these are passing move on to Wave 2.
 
 ### Functions to complete
 
