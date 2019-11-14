@@ -1,25 +1,30 @@
 // Use Node-style imports for dependencies.
 const axios = require('axios');
-const readline = require('readline');
+const prompt = require('prompt-sync')();
 
-// Setup for the readline library.
-const reader = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+// Custom error class to represent trying to do something without a selected pet.
+class NoPetSelectedError extends Error {
+}
 
 // Custom error class to represent a generic failure in the Pets API.
 class PetsApiError extends Error {
 }
 
-// Custom error class to represent failing to find a pet in the Pets API. 
-class PetNotFound extends PetsApiError {
+// Custom error class to represent failing to find a pet in the Pets API.
+class PetNotFoundError extends PetsApiError {
 }
+
+// Helper to log errors in red.
+const logError = (message) => {
+  console.error(`\x1b[1;31m${message}\x1b[0m`);
+}
+
+let done = false;
 
 // Option functions.
 const exit = () => {
   console.log("Thank you for using the Ada Pets Adoption App!");
-  process.exit();
+  done = true;
 }
 
 const listPets = () => {
@@ -32,14 +37,32 @@ const [selectPet, showDetails, removePet] = (() => {
   let selectedPet = null;
 
   const selectPet = () => {
-    // Fill out as part of Wave 2.
+    let petId = null;
+
+    while (!petId || isNaN(petId)) {
+      petId = parseInt(prompt("What pet would you like to select? "), 10);
+
+      if (isNaN(petId)) {
+        logError("Invalid input.  Please enter a number.");
+      }
+    }
+
+    selectedPet = petId;
   }
 
   const showDetails = () => {
+    if (!selectedPet) {
+      throw new NoPetSelectedError("You tried to show details for a pet without selecting it!");
+    }
+
     // Fill out as part of Wave 2.
   }
 
   const removePet = () => {
+    if (!selectedPet) {
+      throw new NoPetSelectedError("You tried to remove a pet without selecting it!");
+    }
+
     // Fill out as part of Wave 3.
   }
 
@@ -60,15 +83,14 @@ const options = {
   "add a pet": addPet
 }
 
-// Code to display the menu and prompt then run the selected option.
-reader.setPrompt(`Options:\n  ${Object.keys(options).join("\n  ")}\n\nWhat would you like to do? `);
-reader.prompt();
+while (!done) {
+  console.log("Options:");
+  for (const option of Object.keys(options)) {
+    console.log(`  ${option}`);
+  }
+  console.log();
 
-// Colors.
-const brightRed = "\x1b[1;31m";
-const resetColor = "\x1b[0m";
-
-reader.on('line', function(choice) {
+  const choice = prompt("What would you like to do? ")
   const selectedOption = options[choice.trim().toLowerCase()];
 
   if (selectedOption) {
@@ -76,15 +98,13 @@ reader.on('line', function(choice) {
       console.log();
       selectedOption();
     } catch (e) {
-      console.error(`${brightRed}Failed to ${choice}: ${e.message}${resetColor}`);
+      logError(`Failed to ${choice}: ${e.message}`);
     }
     console.log();
   } else {
     console.log(`You have selected an invalid option: "${choice}"`);
   }
-
-  reader.prompt();
-});
+}
 
 // Use Node-style exports to export functions for tests.
 module.exports = {
@@ -94,5 +114,7 @@ module.exports = {
   showDetails,
   removePet,
   addPet,
-  PetsApiError
+  PetsApiError,
+  PetNotFoundError,
+  NoPetSelectedError
 }
