@@ -40,26 +40,21 @@ To do this fill out the `listPets` function.  This will need to make a call to t
 
 You can run the Wave 1 tests with `jest test/wave1.test.js`.  Once these are passing move on to Wave 2.
 
-### Functions to complete
+### Function to complete
 
-* `listPets` (uses Pets API)
+* `listPets`
 
 ## Wave 2: Details
 
-We now want to be able to look at individual pets.  Like in Slack CLI we're going to want to select a given pet before we ask for details on one.  To do this we're going to fill out a few functions that we're creating within a closure.
+We now want to be able to look at individual pets.  Like in Slack CLI we're going to want to select a given pet before we ask for details on one.  To do this we're going to fill out a few functions that we're creating within a closure.  There is a provided function `selectPet` that will prompt you for a pet's `id` and save it.
 
-<!-- TODO: Do we want to avoid the closure issue by either filling out `selectPet` or making `showDetails` (and `removePet` take a `petId`? -->
-
-The first is `selectPet` which will want to update the `selectedPet` variable inside the closure.  You will need to keep track of the selected pet's `id` here, though you could store other information there if you'd like.
-
-The second part is filling out the `petDetails` function.  This will need to make a call to the Pets API and should return details for the pet.  This should [`throw`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw) an error if it fails.
+To do this you will need to fill out the `petDetails` function.  This will need to make a call to the Pets API and should return details for the pet.  This should [`throw`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw) an error if it fails.
 
 You can run the Wave 2 tests with `jest test/wave2.test.js`.  Once these are passing move on to Wave 3.
 
-### Functions to complete
+### Function to complete
 
-* `selectPet`
-* `showDetails` (uses Pets API)
+* `showDetails`
 
 ## Wave 3: Remove Pet
 
@@ -69,9 +64,9 @@ To do this fill out the `removePet` function.  This will need to call to the Pet
 
 You can run the Wave 3 tests with `jest test/wave3.test.js`.  Once these are passing move on to Wave 4.
 
-### Functions to complete
+### Function to complete
 
-* `removePet` (uses Pets API)
+* `removePet`
 
 ## Wave 4: Add a Pet
 
@@ -81,6 +76,6 @@ To do this fill out the `addPet` function.  This will need to call the Pets API 
 
 You can run the Wave 4 tests with `jest test/wave4.test.js`.  Once these are passing you're done!  :tada:
 
-### Functions to complete
+### Function to complete
 
-* `addPet` (uses Pets API)
+* `addPet`
