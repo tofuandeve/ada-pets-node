@@ -3,16 +3,13 @@ const axios = require('axios');
 const prompt = require('prompt-sync')();
 
 // Custom error class to represent trying to do something without a selected pet.
-class NoPetSelectedError extends Error {
-}
+class NoPetSelectedError extends Error {}
 
 // Custom error class to represent a generic failure in the Pets API.
-class PetsApiError extends Error {
-}
+class PetsApiError extends Error {}
 
 // Custom error class to represent failing to find a pet in the Pets API.
-class PetNotFoundError extends PetsApiError {
-}
+class PetNotFoundError extends PetsApiError {}
 
 // Helper to log errors in red.
 const logError = (message) => {
@@ -33,6 +30,11 @@ const listPets = () => {
 }
 
 // Use a closure to make `selectedPet` private.
+// 
+// `const [a, b, c] = array` is shorthand for:
+// `const a = array[0]`
+// `const b = array[1]`
+// `const c = array[2]`
 const [selectPet, showDetails, removePet] = (() => {
   let selectedPet = null;
 
