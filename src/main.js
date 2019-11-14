@@ -8,6 +8,14 @@ const reader = readline.createInterface({
   output: process.stdout
 });
 
+// Custom error class to represent a generic failure in the Pets API.
+class PetsApiError extends Error {
+}
+
+// Custom error class to represent failing to find a pet in the Pets API. 
+class PetNotFound extends PetsApiError {
+}
+
 // Option functions.
 const exit = () => {
   console.log("Thank you for using the Ada Pets Adoption App!");
@@ -16,6 +24,7 @@ const exit = () => {
 
 const listPets = () => {
   // Fill in as part of Wave 1.
+  throw new PetsApiError("danger! danger!");
 }
 
 // Use a closure to make `selectedPet` private.
@@ -52,23 +61,38 @@ const options = {
 }
 
 // Code to display the menu and prompt then run the selected option.
-reader.setPrompt(`Options:\n${Object.keys(options).join("\n  ")}\n\nWhat would you like to do? `);
+reader.setPrompt(`Options:\n  ${Object.keys(options).join("\n  ")}\n\nWhat would you like to do? `);
 reader.prompt();
+
+// Colors.
+const brightRed = "\x1b[1;31m";
+const resetColor = "\x1b[0m";
 
 reader.on('line', function(choice) {
   const selectedOption = options[choice.trim().toLowerCase()];
 
   if (selectedOption) {
-    selectedOption();
+    try {
+      console.log();
+      selectedOption();
+    } catch (e) {
+      console.error(`${brightRed}Failed to ${choice}: ${e.message}${resetColor}`);
+    }
+    console.log();
   } else {
     console.log(`You have selected an invalid option: "${choice}"`);
   }
 
   reader.prompt();
-})
+});
 
 // Use Node-style exports to export functions for tests.
 module.exports = {
   exit,
-  listPets
+  listPets,
+  selectPet,
+  showDetails,
+  removePet,
+  addPet,
+  PetsApiError
 }
