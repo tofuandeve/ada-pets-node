@@ -1,13 +1,8 @@
 // Custom error class to represent taking too long to `setResult`/`setError`.
 class TimeoutError extends Error {}
 
-// Use a closure to keep track of results.
-//
-// `const [a, b, c] = array` is shorthand for:
-// `const a = array[0]`
-// `const b = array[1]`
-// `const c = array[2]`
-const [setResult, setError, getResult] = (() => {
+// Use a closure to keep track of results and errors;
+const resultFunctions = (() => {
   let result = undefined;
   let error = undefined;
 
@@ -36,16 +31,11 @@ const [setResult, setError, getResult] = (() => {
     }
   }
 
-  return [setResult, setError, getResult]
+  return {
+    setResult: setResult,
+    setError: setError,
+    getResult: getResult
+  }
 })();
 
-// Export the result handling functions.
-// 
-// `{a, b, c}` is shorthand for:
-// 
-// `{a: a, b: b, c: c}
-module.exports = {
-  setResult,
-  setError,
-  getResult
-}
+module.exports = resultFunctions;

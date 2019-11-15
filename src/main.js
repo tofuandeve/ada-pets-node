@@ -1,19 +1,16 @@
 // Use Node-style imports for dependencies.
 const prompt = require('prompt-sync')();
-// `const {a, b, c} = object` is shorthand for:
-// 
-// `const a = object.a`
-// `const b = object.b`
-// `const c = object.c`
-const {setResult, getResult} = require('./result.js');
+const result = require('./result.js');
+const adaPets = require('./ada_pets.js');
 
-const {
-  listPets,
-  selectPet,
-  showDetails,
-  removePet,
-  addPet
-} = require('./ada_pets.js');
+const setResult = result.setResult
+const setError = result.setError
+const getResult = result.getResult
+
+const listPets = adaPets.listPets;
+const showDetails = adaPets.showDetails;
+const removePet = adaPets.removePet;
+const addPet = adaPets.addPet;
 
 // Helper to log errors in red.
 const logError = (message) => {
@@ -26,6 +23,22 @@ const exit = () => {
   done = true;
 
   return setResult("Thank you for using the Ada Pets Adoption App!");
+}
+
+let selectedPet = null;
+
+const selectPet = () => {
+  let petId = null;
+
+  petId = parseInt(prompt("What pet would you like to select? "), 10);
+
+  if (isNaN(petId)) {
+    setError("Invalid pet id. ${petId} is not an integer.");
+    return;
+  } else {
+    selectedPet = petId;
+    setResult(selectedPet);
+  }
 }
 
 // Register the options.
@@ -50,7 +63,7 @@ while (!done) {
 
   if (selectedOption) {
     console.log();
-    selectedOption();
+    selectedOption(selectedPet);
 
     try {
       console.log(getResult(1000));
