@@ -1,7 +1,7 @@
 // Use Node-style imports for dependencies.
 const prompt = require('prompt-sync')();
 const result = require('./result.js');
-const adaPets = require('./ada_pets.js');
+const adaPets = require('./adaPets.js');
 
 const setResult = result.setResult
 const setError = result.setError

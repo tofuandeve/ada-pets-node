@@ -20,14 +20,14 @@ const resultFunctions = (() => {
       }
     }
 
-    if (result) {
-      const ret = result;
-      result = undefined;
-      return ret;
-    } else {
+    if (error) {
       const message = error;
       error = undefined;
       throw new Error(message);
+    } else {
+      const ret = result;
+      result = undefined;
+      return ret;
     }
   }
 
