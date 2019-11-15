@@ -5,6 +5,8 @@ const result = require('./result.js');
 const setResult = result.setResult;
 const setError = result.setError;
 
+const BASE_URL = "https://petdibs.herokuapp.com/pets/";
+
 // Option functions.
 const listPets = () => {
   // Fill in as part of Wave 1.
