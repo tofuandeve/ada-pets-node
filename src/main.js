@@ -11,26 +11,65 @@ class PetsApiError extends Error {}
 // Custom error class to represent failing to find a pet in the Pets API.
 class PetNotFoundError extends PetsApiError {}
 
+// Custom error class to represent taking too long to `setResult`/`setError`.
+class TimeoutError extends Error {}
+
 // Helper to log errors in red.
 const logError = (message) => {
   console.error(`\x1b[1;31m${message}\x1b[0m`);
 }
 
+// Use a closure to keep track of state.
+//
+// `const [a, b, c] = array` is shorthand for:
+// `const a = array[0]`
+// `const b = array[1]`
+// `const c = array[2]`
+const [setResult, setError, getResult] = (() => {
+  let result = undefined;
+  let error = undefined;
+
+  const setResult = (value) => { result = value };
+  const setError = (value) => { error = value };
+  const getResult = () => {
+    const startTime = new Date().getTime();
+
+    while (result === undefined && error === undefined) {
+      const currentTime = new Date().getTime();
+      if (currentTime - startTime > 1000) {
+        throw new TimeoutError("Took too long to produce a result!");
+      }
+    }
+
+    if (result) {
+      const ret = result;
+      result = undefined;
+      return ret;
+    } else {
+      const message = error;
+      error = undefined;
+      throw new Error(message);
+    }
+  }
+
+  return [setResult, setError, getResult]
+})();
+
 let done = false;
 
 // Option functions.
 const exit = () => {
-  console.log("Thank you for using the Ada Pets Adoption App!");
   done = true;
+
+  return setResult("Thank you for using the Ada Pets Adoption App!");
 }
 
 const listPets = () => {
   // Fill in as part of Wave 1.
-  throw new PetsApiError("danger! danger!");
 }
 
 // Use a closure to make `selectedPet` private.
-// 
+//
 // `const [a, b, c] = array` is shorthand for:
 // `const a = array[0]`
 // `const b = array[1]`
@@ -50,11 +89,13 @@ const [selectPet, showDetails, removePet] = (() => {
     }
 
     selectedPet = petId;
+    setResult(selectedPet);
   }
 
   const showDetails = () => {
     if (!selectedPet) {
-      throw new NoPetSelectedError("You tried to show details for a pet without selecting it!");
+      setError("You tried to show details for a pet without selecting it!");
+      return;
     }
 
     // Fill out as part of Wave 2.
@@ -62,7 +103,8 @@ const [selectPet, showDetails, removePet] = (() => {
 
   const removePet = () => {
     if (!selectedPet) {
-      throw new NoPetSelectedError("You tried to remove a pet without selecting it!");
+      setError("You tried to remove a pet without selecting it!");
+      return;
     }
 
     // Fill out as part of Wave 3.
@@ -96,12 +138,15 @@ while (!done) {
   const selectedOption = options[choice.trim().toLowerCase()];
 
   if (selectedOption) {
+    console.log();
+    selectedOption();
+
     try {
-      console.log();
-      selectedOption();
+      console.log(getResult());
     } catch (e) {
       logError(`Failed to ${choice}: ${e.message}`);
     }
+
     console.log();
   } else {
     console.log(`You have selected an invalid option: "${choice}"`);
@@ -118,5 +163,6 @@ module.exports = {
   addPet,
   PetsApiError,
   PetNotFoundError,
-  NoPetSelectedError
+  NoPetSelectedError,
+  getResult
 }
