@@ -1,5 +1,7 @@
 // Custom error class to represent taking too long to `setResult`/`setError`.
 class TimeoutError extends Error {}
+// Custom error class to represent a problem with the api.
+class PetsApiError extends Error {}
 
 // Use a closure to keep track of results and errors;
 const resultFunctions = (() => {
@@ -23,7 +25,7 @@ const resultFunctions = (() => {
     if (error) {
       const message = error;
       error = undefined;
-      throw new Error(message);
+      throw new PetsApiError(message);
     } else {
       const ret = result;
       result = undefined;
@@ -39,3 +41,4 @@ const resultFunctions = (() => {
 })();
 
 module.exports = resultFunctions;
+module.exports.PetsApiError = PetsApiError;
