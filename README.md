@@ -28,7 +28,14 @@ She's managed to figure out the CLI parts on her own but needs your help with th
 
 ### Layout
 
-You will be adding your code to `src/main.js`.  You should read through this file to start to get an idea of the basics of how it works.  All of the functions you need to implement are currently there, just with empty bodies.
+You will be adding your code to `src/adaPets.js`.  All of the functions you need to implement are currently there, just with empty bodies.
+
+There are two other files that we've provided that you won't need to change `src/main.js` and `src/result.js`.  They are worth taking a quick look at but don't worry too much if you don't understand them fully.
+* `src/main.js` is the actual driver code for the CLI app.  If you want to manually test your code you can use this.
+* `src/result.js` is the library we've written to handle results and errors for this app.  It provides three functions, two of which you will use and one of which you're going to see in the tests.  **Every helper function should make sure to call `setResult` or `setError` before each `return`.**
+  * `setResult` call this function to set the result of your function.  We use this because Axios is asynchronous.
+  * `setError` call this function to indicate an error in your function.  Again, we use this because Axios is asynchronous.
+  * `getResult` this function waits for a result or error to be produced.  If there's an error it throws an error, otherwise it returns the that was set.  If it takes too long for your code to produce a result (like say because you haven't written it yet) it will raise a `TimeoutError`.
 
 There are tests for each of the waves in the `test/` directory, there is one file per wave.  For example you can run the Wave 1 tests with `jest test/wave1.test.js`.
 
