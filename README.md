@@ -20,6 +20,8 @@ Ada Lovelace is starting a pet rescue service advertising pets in need of rescue
 
 She's managed to figure out the CLI parts on her own but needs your help with the API requests.
 
+You will be using the [Pets API](https://github.com/AdaGold/pets-api) for this.
+
 ### Setup
 
 1. Fork and clone this repository
@@ -40,6 +42,10 @@ There are two other files that we've provided that you won't need to change `src
 There are tests for each of the waves in the `test/` directory, there is one file per wave.  For example you can run the Wave 1 tests with `jest test/wave1.test.js`.
 
 **Note: Because Axios is asynchronous we will need to use `setResult` instead of returning results and `setError` instead of throwing errors.**
+
+## Wave 0: Familiarize Yourself with the Pets API
+
+Read through the [documentation for the Pets API](https://github.com/AdaGold/pets-api) and experiment with using it via Postman so you can have a handle on how it works for the tasks below.
 
 ## Wave 1: List Pets
 
@@ -69,7 +75,7 @@ You can run the Wave 2 tests with `jest test/wave2.test.js`.  Once these are pas
 
 ## Wave 3: Remove Pet
 
-Once a pet is adopted we don't still want to show it on the list.  (We don't want people fighting over the same pet after all :winky-face:.)
+Once a pet is adopted we don't still want to show it on the list.  (We don't want people fighting over the same pet after all :wink:.)
 
 To do this fill out the `removePet` function.  This will need to call to the Pets API to remove the pet.  This should `setResult` with a success message if this works and should `setError(new PetsApiError())` if the request fails.
 
