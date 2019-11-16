@@ -5,11 +5,13 @@ const result = require('./result.js');
 const setResult = result.setResult;
 const setError = result.setError;
 
-const BASE_URL = "https://petdibs.herokuapp.com/pets/";
+const BASE_URL = "https://petdibs.herokuapp.com/pets";
 
 // Option functions.
 const listPets = () => {
-  // Fill in as part of Wave 1.
+  axios.get(BASE_URL)
+    .then((resp) => setResult(resp))
+    .catch(() => setError("Failed to list pets!"));
 }
 
 const showDetails = (selectedPet) => {
