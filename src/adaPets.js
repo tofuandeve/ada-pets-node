@@ -9,6 +9,7 @@ const BASE_URL = "https://petdibs.herokuapp.com/pets";
 
 // Option functions.
 const listPets = () => {
+  // Fill out as part of Wave 1.
 }
 
 const showDetails = (selectedPet) => {
