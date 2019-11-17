@@ -9,9 +9,6 @@ const BASE_URL = "https://petdibs.herokuapp.com/pets";
 
 // Option functions.
 const listPets = () => {
-  axios.get(BASE_URL)
-    .then((resp) => setResult(resp))
-    .catch(() => setError("Failed to list pets!"));
 }
 
 const showDetails = (selectedPet) => {
@@ -39,7 +36,7 @@ const addPet = () => {
 // Use Node-style exports to export functions for tests and main.
 module.exports = {
   listPets: listPets,
-  showDetauls: showDetails,
+  showDetails: showDetails,
   removePet: removePet,
   addPet: addPet
 }

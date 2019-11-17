@@ -2,13 +2,28 @@
 const resultFunctions = (() => {
   let resultHandler = () => {};
   let errorHandler = () => {};
+  let token = undefined;
 
-  const setHandlers = (resultCb, errorCb) => {
-    resultHandler = resultCb;
-    errorHandler = errorCb;
+  const setHandlers = (resultCallback, errorCallback, timeoutCallback, timeoutMs) => {
+    timeoutCallback = timeoutCallback || (() => {
+      throw new Error("Took too long!");
+    });
+    timeoutMs = timeoutMs || 100;
+    resultHandler = resultCallback;
+    errorHandler = errorCallback;
+
+    token = setTimeout(timeoutCallback, timeoutMs);
   }
-  const setResult = (value) => resultHandler(value);
-  const setError = (value) => errorHandler(value);
+  const setResult = (value) => {
+    clearTimeout(token);
+    resultHandler(value);
+  }
+
+  const setError = (value) => {
+    clearTimeout(token);
+    errorHandler(value);
+  }
+
   return {
     setResult: setResult,
     setError: setError,

@@ -34,19 +34,24 @@ const logError = (message) => {
   console.error(`\x1b[1;31m${message}\x1b[0m`);
 }
 
-const doAction = (action) => {
+const doAction = (action, resultCallback) => {
   return (args, done) => {
+    resultCallback = resultCallback || console.log;
+
     const resultHandler = (result) => {
-      console.log(result);
+      resultCallback(result);
       done();
-    }
+    };
 
     const errorHandler = (error) => {
       logError(error);
       done();
-    }
+    };
 
-    setHandlers(resultHandler, errorHandler);
+    setHandlers(resultHandler, errorHandler, () => {
+      logError("Command failed: Took too long to produce a result!");
+      done();
+    }, 5000);
     action(selectedPet, args);
   }
 }
@@ -56,18 +61,27 @@ vorpal.find('exit').remove();
 vorpal
   .command("exit", "exits the program")
   .action(doAction(exit));
+
 vorpal
   .command("list pets", "list the pets from the API")
-  .action(doAction(listPets));
+  .action(doAction(listPets, pets => {
+    pets.forEach(pet => {
+      console.log(`${pet.id}: ${pet.name}`);
+    });
+  }));
+
 vorpal
   .command("select pet <petId>")
   .action(doAction(selectPet));
+
 vorpal
   .command("show details", "show the details for the selected pet")
   .action(doAction(showDetails));
+
 vorpal
   .command("remove pet", "remove the selected pet")
-  .action(doAction(removePet(selectedPet)));
+  .action(doAction(removePet));
+
 vorpal
   .command("add a pet", "add a new pet")
   .action(doAction(addPet));

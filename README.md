@@ -37,7 +37,7 @@ There are two other files that we've provided that you won't need to change `src
 * `src/result.js` is the library we've written to handle results and errors for this app.  It provides three functions, two of which you will use and one of which you're going to see in the tests.  **Every helper function should make sure to call `setResult` or `setError` before each `return`.**
   * `setResult` call this function to set the result of your function.  We use this because Axios is asynchronous.
   * `setError` call this function to indicate an error in your function.  Again, we use this because Axios is asynchronous.
-  * `getResult` this function waits for a result or error to be produced.  If there's an error it throws an error, otherwise it returns the that was set.  If it takes too long for your code to produce a result (like say because you haven't written it yet) it will raise a `TimeoutError`.
+  *  If it takes too long for your code to produce a result (like say because you haven't written it yet) it will time out.
 
 There are tests for each of the waves in the `test/` directory, there is one file per wave.  For example you can run the Wave 1 tests with `jest test/wave1.test.js`.
 
@@ -51,7 +51,7 @@ Read through the [documentation for the Pets API](https://github.com/AdaGold/pet
 
 Before we start doing things like looking at individual pets we want to be able to get a list of all of the pets.
 
-To do this fill out the `listPets` function.  This will need to make a call to the Pets API and should `setResult` a list of objects containing the pet's `id`, `name` and `breed` and should `setError(new PetsApiError())` if the request fails.
+To do this fill out the `listPets` function.  This will need to make a call to the Pets API and should `setResult` a list of objects containing (at least) the pet's `id` and `name` and should call `setError` with an error message if the request fails.
 
 You can run the Wave 1 tests with `jest test/wave1.test.js`.  Once these are passing move on to Wave 2.
 
@@ -65,7 +65,7 @@ These tests use a mocking library to do what we used VCR to do in Ruby.  In each
 
 We now want to be able to look at individual pets.  Like in Slack CLI we're going to want to select a given pet before we ask for details on one.  To do this we're going to fill out a few functions that we're creating within a closure.  There is a provided function `selectPet` that will prompt you for a pet's `id` and save it.
 
-To do this you will need to fill out the `petDetails` function.  This will need to make a call to the Pets API and should `setResult` and object with details for the pet and should `setError(new PetsApiError())` if the request fails.
+To do this you will need to fill out the `petDetails` function.  This will need to make a call to the Pets API and should `setResult` and object with details for the pet and should call `setError` with an error message if the request fails.
 
 You can run the Wave 2 tests with `jest test/wave2.test.js`.  Once these are passing move on to Wave 3.
 
@@ -77,7 +77,7 @@ You can run the Wave 2 tests with `jest test/wave2.test.js`.  Once these are pas
 
 Once a pet is adopted we don't still want to show it on the list.  (We don't want people fighting over the same pet after all :wink:.)
 
-To do this fill out the `removePet` function.  This will need to call to the Pets API to remove the pet.  This should `setResult` with a success message if this works and should `setError(new PetsApiError())` if the request fails.
+To do this fill out the `removePet` function.  This will need to call to the Pets API to remove the pet.  This should `setResult` with a success message if this works and should call `setError` with an error message if the request fails.
 
 You can run the Wave 3 tests with `jest test/wave3.test.js`.  Once these are passing move on to Wave 4.
 
@@ -89,7 +89,7 @@ You can run the Wave 3 tests with `jest test/wave3.test.js`.  Once these are pas
 
 Sometimes we'll have new pets that want to be adopted.  
 
-To do this fill out the `addPet` function.  This will need to call the Pets API to add the pet.  This should `setResult` with a success message if this works and should `setError(new PetsApiError())` if the request fails.
+To do this fill out the `addPet` function.  This will need to call the Pets API to add the pet.  This should `setResult` with a success message if this works and should call `setError` with an error message if the request fails.
 
 You can run the Wave 4 tests with `jest test/wave4.test.js`.  Once these are passing you're done!  :tada:
 
