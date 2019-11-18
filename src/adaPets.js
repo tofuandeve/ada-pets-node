@@ -23,7 +23,15 @@ const showDetails = (selectedPet) => {
     setError("You tried to show details for a pet without selecting it!");
     return;
   }
+  const detailUrl = BASE_URL + selectedPet;
 
+  axios.get(detailUrl)
+  .then((response) => {
+    setResult(response.data);
+  })
+  .catch((error) => {
+    setError("Test failed! Failed to get details")
+  });
   // Fill out as part of Wave 2.
 }
 
