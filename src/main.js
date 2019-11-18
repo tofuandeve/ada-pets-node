@@ -49,9 +49,9 @@ const doAction = (action, resultCallback) => {
     };
 
     setHandlers(resultHandler, errorHandler, () => {
-      logError("Command failed: Took too long to produce a result!");
+      logError("Command failed: Took more than three seconds to produce a result!");
       done();
-    }, 5000);
+    }, 3000);
     action(selectedPet, args);
   }
 }
@@ -71,7 +71,7 @@ vorpal
   }));
 
 vorpal
-  .command("select pet <petId>")
+  .command("select pet <petId>", "select the pet with <petId>")
   .action(doAction(selectPet));
 
 vorpal
@@ -86,6 +86,7 @@ vorpal
   .command("add a pet", "add a new pet")
   .action(doAction(addPet));
 
+vorpal.exec("help");
 vorpal
   .delimiter('What would you like to do?')
   .show();
