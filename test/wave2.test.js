@@ -14,9 +14,9 @@ const fail = (error) => {
   throw new Error(`Test failed! ${error}`);
 }
 
-describe("Wave 1", () => {
+describe("Wave 2", () => {
   // Set up axios test responses.
-  describe("listPets", () => {
+  describe("showDetails", () => {
     it("Can show details for a pet", done => {
       // Arrange.
       // Set up what we want the API to return for this test.
