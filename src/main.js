@@ -83,8 +83,12 @@ vorpal
   .action(doAction(removePet));
 
 vorpal
-  .command("add a pet", "add a new pet")
-  .action(doAction(addPet));
+  .command("add a pet <name>", "add a new pet")
+  .option("-a, --age <age>", "The pet's age in years")
+  .option("-b, --breed <breed>", "The pet's breed or species")
+  .option("-o, --owner <owner>", "The pet's owner")
+  .option("--about <about>", "About the pet")
+  .action(doAction((_, args) => addPet(args)));
 
 vorpal.exec("help");
 vorpal
