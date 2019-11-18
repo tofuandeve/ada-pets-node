@@ -34,7 +34,7 @@ You will be adding your code to `src/adaPets.js`.  All of the functions you need
 
 There are two other files that we've provided that you won't need to change `src/main.js` and `src/result.js`.  They are worth taking a quick look at but don't worry too much if you don't understand them fully.
 * `src/main.js` is the actual driver code for the CLI app.  If you want to manually test your code you can use this.
-* `src/result.js` is the library we've written to handle results and errors for this app.  It provides three functions, two of which you will use and one of which you're going to see in the tests.  **Every helper function should make sure to call `setResult` or `setError` before each `return`.**
+* `src/result.js` is the library we've written to handle results and errors for this app.  It provides three functions, two of which you will use and one of which you're going to see in the tests.  **Every helper function should make sure to call `setResult` or `setError` before each `return`.**  What we pass into setResult and setError will be detailed per wave.
   * `setResult` call this function to set the result of your function.  We use this because Axios is asynchronous.
   * `setError` call this function to indicate an error in your function.  Again, we use this because Axios is asynchronous.
   *  If it takes too long for your code to produce a result (like say because you haven't written it yet) it will time out.
@@ -60,6 +60,8 @@ These tests use a mocking library to do what we used VCR to do in Ruby.  In each
 ### Function to complete
 
 * `listPets`
+  * `setResult` should be passed the array of pets.
+  * `setError` should be passed an error message.  (You may need to write this.)
 
 ## Wave 2: Details
 
@@ -72,6 +74,8 @@ You can run the Wave 2 tests with `jest test/wave2.test.js`.  Once these are pas
 ### Function to complete
 
 * `showDetails`
+  * `setResult` should be passed the `Object` that represents the pet.
+  * `setError` should be passed an error message.  (You may need to write this.)
 
 ## Wave 3: Remove Pet
 
@@ -84,10 +88,13 @@ You can run the Wave 3 tests with `jest test/wave3.test.js`.  Once these are pas
 ### Function to complete
 
 * `removePet`
+  * `setResult` should be passed a success message.  (You may need to write this.)
+  * `setError` should be passed an error message.  (You may need to write this.)
+
 
 ## Wave 4: Add a Pet
 
-Sometimes we'll have new pets that want to be adopted.  
+Sometimes we'll have new pets that want to be adopted.
 
 To do this fill out the `addPet` function.  This will need to call the Pets API to add the pet.  This should `setResult` with a success message if this works and should call `setError` with an error message if the request fails.
 
@@ -96,3 +103,5 @@ You can run the Wave 4 tests with `jest test/wave4.test.js`.  Once these are pas
 ### Function to complete
 
 * `addPet`
+  * `setResult` should be passed the new pet (from the API).
+  * `setError` should be passed an error message.  (You may need to write this.)
