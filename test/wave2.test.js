@@ -81,7 +81,8 @@ describe("Wave 1", () => {
         error => {
           setTimeout(() => {    // We need this to consistently display assertion errors.
             // Assert.
-            expect(error.constructor).toBe(String);
+            expect(error).toMatch(/failed/i);
+            expect(error).toMatch(/details/i);
 
             done();
           })}
