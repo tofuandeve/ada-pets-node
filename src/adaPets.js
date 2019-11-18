@@ -5,7 +5,7 @@ const result = require('./result.js');
 const setResult = result.setResult;
 const setError = result.setError;
 
-const BASE_URL = "https://petdibs.herokuapp.com/pets";
+const BASE_URL = "https://petdibs.herokuapp.com/pets/";
 
 // Option functions.
 const listPets = () => {
@@ -30,7 +30,7 @@ const removePet = (selectedPet) => {
   // Fill out as part of Wave 3.
 }
 
-const addPet = () => {
+const addPet = (petInfo) => {
   // Fill out as part of Wave 4.
 }
 
