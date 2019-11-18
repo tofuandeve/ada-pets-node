@@ -17,18 +17,14 @@ const fail = (error) => {
 describe("Wave 1", () => {
   // Set up axios test responses.
   describe("listPets", () => {
-    it("Can show details for a pet", done => {
+    it("Can remove a pet", done => {
       // Arrange.
       // Set up what we want the API to return for this test.
       mock.onDelete("https://petdibs.herokuapp.com/pets/3").reply(204);
 
       // Assertions come first because they need to be ready before the function call.
       setHandlers(
-        result => {
-          setTimeout(() => {    // We need this to consistently display assertion errors.
-            // No assertions.  We just care that it happened.
-            done();
-          })},
+        done, // No assertions.  We just care that it finished.
         fail);
 
       // Act.
