@@ -30,7 +30,7 @@ const showDetails = (selectedPet) => {
     setResult(response.data);
   })
   .catch((error) => {
-    setError("Test failed! Failed to get details")
+    setError("Failed to get details")
   });
   // Fill out as part of Wave 2.
 }
@@ -41,6 +41,14 @@ const removePet = (selectedPet) => {
     return;
   }
 
+  const petUrl = BASE_URL + selectedPet;
+  axios.delete(petUrl)
+  .then((response) => {
+    setResult("Pet has found a furever home!");
+  })
+  .catch((error) => {
+    setError("Failed to remove pet");
+  });
   // Fill out as part of Wave 3.
 }
 
