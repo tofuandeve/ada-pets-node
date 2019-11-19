@@ -32,7 +32,6 @@ const showDetails = (selectedPet) => {
   .catch((error) => {
     setError("Failed to get details")
   });
-  // Fill out as part of Wave 2.
 }
 
 const removePet = (selectedPet) => {
@@ -49,7 +48,6 @@ const removePet = (selectedPet) => {
   .catch((error) => {
     setError("Failed to remove pet");
   });
-  // Fill out as part of Wave 3.
 }
 
 const addPet = (petInfo) => {
